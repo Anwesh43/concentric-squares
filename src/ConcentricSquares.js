@@ -8,11 +8,11 @@ const Square = ({style}) => {
     )
 } 
 
-const ConcentricSquares = ({w, h, scale, onClick}) => {
+const ConcentricSquares = ({w, h, scale}) => {
     const { parentStyle, squareStyle} = useStyle(w, h, scale)
     return (
-      <div style = {parentStyle()} onClick = {onClick}>
-          {[0, 1, 2, 3, 4].map(() => (<Square style = {squareStyle(i)}/>))}
+      <div style = {parentStyle()}>
+          {[0, 1, 2, 3, 4].map((i) => (<Square key = {`square_${i}`} style = {squareStyle(i)}/>))}
       </div>
     )
 }

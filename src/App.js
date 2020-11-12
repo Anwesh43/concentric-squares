@@ -1,23 +1,15 @@
 import logo from './logo.svg';
 import './App.css';
+import { useAnimatedScale, useDimension} from './hooks'
+import ConcentricSquares from './ConcentricSquares'
 
 function App() {
+  const { w, h } = useDimension()
+  const {scale, start} = useAnimatedScale(0.02, 20) 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick = {start}>start</button>
+      <ConcentricSquares w = {w} h = {h} scale = {scale} onClick = {start}/>
     </div>
   );
 }

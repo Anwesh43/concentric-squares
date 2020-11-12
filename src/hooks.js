@@ -1,8 +1,9 @@
 import {useState, useEffect} from 'react'
 import {divideScale, sinify} from './utils'
 
-const sizeFactor = 8 
+const sizeFactor = 1.8
 const squares = 5 
+const parts = squares + 1
 
 export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
     const [scale, setScale] = useState(0)
@@ -14,7 +15,7 @@ export const useAnimatedScale = (scGap = 0.02, delay = 20) => {
                 setAnimated(true)
                 let currScale = 0
                 const interval = setInterval(() => {
-                    currScale += scGap 
+                    currScale += (scGap / parts) 
                     setScale(currScale)
                     if (currScale > 1) {
                         setAnimated(false)
@@ -53,17 +54,19 @@ export const useStyle = (w, h, scale) => {
         parentStyle() {
             const left = `${w / 2}px`
             const top = `${h / 2}px`
+            const WebkitTransform = `rotate(${90 * divideScale(sf, 5, parts)}deg)`
             return {
                 position, 
                 left, 
-                top
+                top,
+                WebkitTransform
             }
         },
         squareStyle(i) {
-            const sfi = divideScale(sf, i, squares)
+            const sfi = divideScale(sf, i, parts)
             const currSize = (size / (i + 1)) * sfi
             const left = `${-currSize / 2}px`
-            const top = `${-currsize / 2}px`
+            const top = `${-currSize / 2}px`
             const width = `${currSize}px`
             const height = `${currSize}px`
             return {
